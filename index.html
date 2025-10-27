@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="author" content="Catherine Hawley">  
+    <meta name="robots" content="noindex, nofollow"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Commission</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: lightgreen;
+        color: #333;
+        margin: 20px;
+        padding: 20px;
+      }
+
+      h1 {
+        color: #2c3e50;
+        text-align: center;
+        font-size: 2em;
+        margin-bottom: 20px;
+      }
+
+      p {
+        line-height: 1.6;
+        font-size: 1.1em;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: auto;
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      }
+
+      button {
+        background-color: #3498db;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        font-size: 1em;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #2980b9;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Commission Calculator</h1>
+      <div id="results"></div>
+    </div>
+
+    <script>
+      // Initialize variables
+      let total = 0;
+      let userInput = "";
+
+      // Get dollar amounts from user until they type "Done"
+      while (userInput.toLowerCase() !== "done") {
+        userInput = prompt("Enter the dollar amount for your sales one at a time. Enter 'Done' when finished.");
+
+        if (userInput.toLowerCase() === "done") {
+          break;
+        }
+
+        let amount = Number(userInput);
+
+        if (isNaN(amount)) {
+          alert("Please enter a valid number!");
+        } else {
+          total += amount;
+        }
+      }
+
+      // Determine commission rate based on total
+      let commissionRate;
+
+      if (total >= 1000) {
+        commissionRate = 0.15;
+      } else if (total > 499.99) {
+        commissionRate = 0.10;
+      } else if (total > 0.01) {
+        commissionRate = 0.05;
+      } else {
+        commissionRate = 0;
+      }
+
+      let commission = total * commissionRate;
+
+      // Round values using Math.round
+      let roundedTotal = Math.round(total * 100) / 100;
+      let roundedCommission = Math.round(commission * 100) / 100;
+      let roundedEarnings = Math.round((commission + total) * 100) / 100;
+
+      // Display results
+      document.getElementById("results").innerHTML = `
+        <p>Your sales total is <strong>$${roundedTotal}</strong></p>
+        <p>Your commission rate is <strong>${commissionRate * 100}%</strong></p>
+        <p>Your total commission is <strong>$${roundedCommission}</strong></p>
+        <p>Your total earnings are <strong>$${roundedEarnings}</strong></p>
+      `;
+    </script>
+  </body>
+</html>
